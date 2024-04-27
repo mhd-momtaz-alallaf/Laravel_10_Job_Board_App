@@ -1,0 +1,4 @@
+/* Tailwind will parse thos directives and replace it with the actual utilities calsses that we will use in the project */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
