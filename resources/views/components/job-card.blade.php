@@ -1,6 +1,6 @@
 <x-card class="mb-4">
     <div class="mb-4 flex justify-between">
-      <h2 class="text-lg font-medium">{{ $job->title }}</h2>
+      <h2 class="text-lg font-medium">{{ $job->title }}</h2> {{-- $job is the first slot parameter --}}
       <div class="text-slate-500">
         ${{ number_format($job->salary) }}
       </div>
@@ -23,5 +23,5 @@
       {!! nl2br(e($job->description)) !!}
     </p>
   
-    {{ $slot }}
+    {{ $slot }} {{-- second slot parameter to add the show button (link-button.blade.php) bellow the job card  --}}
   </x-card>
