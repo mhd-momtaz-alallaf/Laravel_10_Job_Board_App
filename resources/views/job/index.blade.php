@@ -1,4 +1,7 @@
 <x-layout>
+    <x-breadcrumbs class="mb-4"
+        :links="['Jobs' => route('jobs.index')]" />
+        
     @foreach ($jobs as $job)
         <x-job-card class="mb-4" :$job> {{-- passing the slot parameter (:$job) in the (job-card) blade component --}}
             <div>
