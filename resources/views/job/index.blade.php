@@ -20,7 +20,10 @@
                     <div class="mb-1 font-semibold">Experience</div>
           
                     <x-radio-group filterName="experience"
-                        :options="\App\Models\Job::$experience" />
+                        :options="array_combine( // craetes an assosiateve array (this will show the experiance levels in first letter upperCase )
+                            array_map('ucfirst', \App\Models\Job::$experience), // to be the the key of the new array(the $label inside radio-group.blade.php) ( will upperCase the first letter for each Job::$experience satatic array item )
+                            \App\Models\Job::$experience, // and the new array value (options without changes).
+                        )" />
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Category</div>
