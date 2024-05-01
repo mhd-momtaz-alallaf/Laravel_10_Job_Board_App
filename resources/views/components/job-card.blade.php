@@ -19,9 +19,5 @@
       </div>
     </div>
   
-    <p class="mb-4 text-sm text-slate-500">
-      {!! nl2br(e($job->description)) !!}
-    </p>
-  
     {{ $slot }} {{-- second slot parameter to add the show button (link-button.blade.php) bellow the job card  --}}
   </x-card>
