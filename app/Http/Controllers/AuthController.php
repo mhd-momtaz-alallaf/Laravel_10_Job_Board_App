@@ -39,8 +39,13 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy() // we dont want the convention of resource controller here, so we will delete the $id and add the route manually in the web.php for destroy method 
     {
-        //
+        Auth::logout();
+
+        request()->session()->invalidate(); // delete all user session data
+        request()->session()->regenerateToken(); // regenerate the csrf tokens to disable sending the old forms that was made before the user is logged out.
+
+        return redirect('/');
     }
 }
