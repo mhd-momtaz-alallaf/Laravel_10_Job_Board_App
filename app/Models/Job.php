@@ -30,7 +30,10 @@ class Job extends Model
         return $query->when($filters['search'] ?? null, function ($query, $search) { // $search will use the $filters['search'] value
             $query->where(function ($query) use ($search) { // we used function inside a function to make the results of the serach query have (and) operator with the salary queries
                 $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%');
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhereHas('employer', function ($query) use ($search) { // WhereHas to make nested query (gets the employer table (the relation) and apply a query function on it)
+                        $query->where('company_name', 'like', '%' . $search . '%');
+                    });
             });
         })->when($filters['min_salary'] ?? null, function ($query, $minSalary) {// $minSalary will use the $filters['min_salary'] value
             $query->where('salary', '>=', $minSalary);
