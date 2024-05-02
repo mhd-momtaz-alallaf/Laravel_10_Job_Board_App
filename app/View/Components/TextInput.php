@@ -15,7 +15,7 @@ class TextInput extends Component
         public ?string $value = null, // ?string means its nullable
         public ?string $name = null,
         public ?string $placeholder = null,
-        public ?string $formId = null
+        public ?string $formRef = null // to deal with alpinejs x-ref directive
     ) {
     }
 

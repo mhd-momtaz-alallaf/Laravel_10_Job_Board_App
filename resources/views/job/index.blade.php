@@ -2,22 +2,23 @@
     <x-breadcrumbs class="mb-4"
         :links="['Jobs' => route('jobs.index')]" />
     
-    <x-card class="mb-4 text-sm">
-        <form id="filtering-form" action="{{ route('jobs.index') }}" method="GET"> {{-- using GET method with the form will add the query parameters to the route --}}
+    <x-card class="mb-4 text-sm" x-data=""> {{-- x-data will make the x-card an alpine component --}}
+        <form x-ref="filtering" action="{{ route('jobs.index') }}" method="GET"> {{-- using GET method with the form will add the query parameters to the route --}}
+            {{-- x-ref is an alpine directive to give the form tag an id to deal with it from another place --}}
             <div class="mb-4 grid grid-cols-2 gap-4">
                 <div>
                     <div class="mb-1 font-semibold">Search</div>
                     <x-text-input name="search" value="{{request('search')}}" 
-                        placeholder="Search for any text" form-id="filtering-form"/> {{-- we used name="search" not :name="search" while passing the parameters because we want laravel to conseder it as string not as an php statement --}}
+                        placeholder="Search for any text" form-ref="filtering"/> {{-- we used name="search" not :name="search" while passing the parameters because we want laravel to conseder it as string not as an php statement --}}
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Salary</div>
                     <div class="flex space-x-2">
                         <x-text-input name="min_salary" value="{{request('min_salary')}}" 
-                            placeholder="From" form-id="filtering-form"/>
+                            placeholder="From" form-ref="filtering"/>
 
                         <x-text-input name="max_salary" value="{{request('max_salary')}}" 
-                            placeholder="To" form-id="filtering-form"/>
+                            placeholder="To" form-ref="filtering"/>
                     </div>
                 </div>
                 <div>
@@ -36,7 +37,7 @@
                         :options="\App\Models\Job::$category" />
                 </div>
             </div>
-            
+
             <x-button class="w-full">Filter</x-button>
         </form>
   </x-card>
