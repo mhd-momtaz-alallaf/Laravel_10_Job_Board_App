@@ -48,7 +48,7 @@ class JobController extends Controller
     {
         return view(
             'job.show',
-            ['job' => $job->load('employer')] // to load the employer relation with the job
+            ['job' => $job->load('employer.jobs')] // to load the employer relation and all jobs related to this employer.
         );
     }
 
