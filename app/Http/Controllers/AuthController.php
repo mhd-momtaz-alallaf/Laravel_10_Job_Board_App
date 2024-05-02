@@ -3,17 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -27,31 +20,20 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $credentials = $request->only('email', 'password');
+        $remember = $request->filled('remember'); // to get the value of the rememper me checkBox.
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        if (Auth::attempt($credentials, $remember)) { // attempt() is a laravel method that tryes to authinticate the user( accepts first parameter $credentials array, the second one is $remember to keep the user loged in by the cookies)
+            return redirect()->intended('/'); // intended (after login, laravel will redirect the user to the page he wants to visit before login process), or will take him to the '/' main page by default if there no intended page
+        } else {
+            return redirect()->back()
+                ->with('error', 'Invalid credentials');
+        }
     }
 
     /**
