@@ -20,7 +20,9 @@ class JobController extends Controller
             'category'
         );
 
-        return view('job.index', ['jobs' => Job::filter($filters)->get()]); // filter is the local Query Scope (scopeFilter)
+        return view('
+            job.index', 
+            ['jobs' => Job::with('employer')->filter($filters)->get()]); // filter is the local Query Scope (scopeFilter)
     }
 
     /**
@@ -44,7 +46,10 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        return view('job.show', compact('job')); // compact('job') converts the $job to array.
+        return view(
+            'job.show',
+            ['job' => $job->load('employer')] // to load the employer relation with the job
+        );
     }
 
     /**
