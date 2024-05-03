@@ -22,7 +22,7 @@ class JobController extends Controller
 
         return view('
             job.index', 
-            ['jobs' => Job::with('employer')->filter($filters)->get()]); // filter is the local Query Scope (scopeFilter)
+            ['jobs' => Job::with('employer')->latest()->filter($filters)->get()]); // filter is the local Query Scope (scopeFilter)
     }
 
     /**
