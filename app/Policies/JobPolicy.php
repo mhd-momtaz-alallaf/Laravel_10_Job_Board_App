@@ -66,6 +66,6 @@ class JobPolicy
 
     public function apply(User $user, Job $job): bool
     {
-        return false;
+        return !$job->hasUserApplied($user); // if the user has not applied for job yet allow him to apply, otherwise prevent him from applying.
     }
 }
